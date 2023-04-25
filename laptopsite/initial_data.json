@@ -1,0 +1,38 @@
+[
+    {
+      "model": "CustomerSite.Brand",
+      "pk": 1,
+      "fields": {
+        "name": "Dell"
+      }
+    },
+    {
+      "model": "CustomerSite.Brand",
+      "pk": 2,
+      "fields": {
+        "name": "HP"
+      }
+    },
+    {
+      "model": "CustomerSite.Laptop",
+      "pk": 1,
+      "fields": {
+        "name": "Dell Inspiron",
+        "brand": 1,
+        "price": 799.99,
+        "description": "A powerful laptop with a 14-inch display.",
+        "image": "images/dell-inspiron.jpg"
+      }
+    },
+    {
+      "model": "CustomerSite.Laptop",
+      "pk": 2,
+      "fields": {
+        "name": "HP Pavilion",
+        "brand": 2,
+        "price": 649.99,
+        "description": "A stylish laptop with a 15.6-inch display.",
+        "image": "images/hp-pavilion.jpg"
+      }
+    }
+  ]
