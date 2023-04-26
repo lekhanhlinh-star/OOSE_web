@@ -1,11 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Brand(models.Model):
     name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
+
 
 class Laptop(models.Model):
     name = models.CharField(max_length=50)
@@ -17,6 +19,7 @@ class Laptop(models.Model):
     def __str__(self):
         return self.name
 
+
 class Customer(User):
     phone_number = models.CharField(max_length=20)
     address = models.CharField(max_length=200)
@@ -24,26 +27,28 @@ class Customer(User):
     def __str__(self):
         return self.username
 
+
 class Order(models.Model):
-    STATUS_CHOICES = [
-        ('P', 'Pending'),
+    STATUS = [
+        ('O', 'Order'),
+        ('D', 'Delivery'),
         ('C', 'Complete'),
-        ('R', 'Refunded'),
     ]
-    
-    
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     laptop = models.ForeignKey(Laptop, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=1, choices=STATUS)
     created_at = models.DateTimeField(auto_now_add=True)
+    pay = models.BooleanField()
 
     def __str__(self):
         return f"{self.customer.username} - {self.laptop.name}"
 
     def total_price(self):
         return self.quantity * self.laptop.price
+
+
 class Transaction(models.Model):
     STATUS_CHOICES = [
         ('S', 'Success'),
