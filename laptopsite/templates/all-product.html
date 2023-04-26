@@ -1,15 +1,16 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Metaverse Laptop</title>
-    <link href="../image/logo-re.png" rel="icon">
-    <link href="../css/style.css" rel="stylesheet">
-    <link href="../fonts/themify-icons/themify-icons.css" rel="stylesheet">
-    <link href="../fonts/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href=      "{% static  '/image/logo-re.png' %}"     rel="icon">
+    <link href=       "{% static    "/css/style.css" %}"    rel="stylesheet">
+    <link href=  "{% static  "/fonts/themify-icons/themify-icons.css"%}"    rel="stylesheet">
+    <link href="{% static  "/fonts/font-awesome-4.7.0/css/font-awesome.css"  %}"  rel="stylesheet">
+    <link href="{% static  "/fonts/font-awesome-4.7.0/css/font-awesome.min.css" %}"   rel="stylesheet">
     <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
           integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
@@ -17,7 +18,7 @@
     <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
           integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
-    <link href="../css/responsiveIndex.css" rel="stylesheet">
+    <link href="{% static  "/css/responsiveIndex.css"  %}"  rel="stylesheet">
 </head>
 <body>
 <div id="main">
@@ -290,481 +291,40 @@
         </div>
         <div class="cover-all-product">
             <div class="all-product-cover">
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
+                
+               
+                    {% block content %}
+                 
+                    
+                        {% for laptop in object_list %}
+                        <div class="hover-all-product">
+                    <a class="all-product-item" href="{{laptop.id}}">
                         <div class="status-sale">-11%</div>
                         <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
+                             style="background-image: url( {% static laptop.image.0 %} )">
                             <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
                         </div>
                         <div class="status">HẾT HÀNG</div>
                         <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
+                            {{laptop.name}}
                         </div>
                         <div class="price-all-product-item">
-                            30.390.000đ
+                          {{laptop.price}}
                         </div>
                         <div class="sale-all-product-item">
                             <span class="origin-price">33.999.000đ</span> <span>11%</span>
                         </div>
                     </a>
                 </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="hover-all-product">
-                    <a class="all-product-item" href="product-page.html">
-                        <div class="status-sale">-11%</div>
-                        <div class="img-all-product-item"
-                             style="background-image: url(../image/all-product/unnamed.jpg)">
-                            <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
-                        </div>
-                        <div class="status">HẾT HÀNG</div>
-                        <div class="infor-all-product-item">
-                            Laptop MSI Prestige 15 A10SC-222VN (15" FHD/i7-10710U/16GB/512GB SSD/GTX 1650/Win10/1.6 kg)
-                        </div>
-                        <div class="price-all-product-item">
-                            30.390.000đ
-                        </div>
-                        <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
-                        </div>
-                    </a>
-                </div>
+                       
+
+                        {% endfor %}
+                    </ul>
+                    {% endblock %}
+                    
+                    
+                
+
 
             </div>
         </div>

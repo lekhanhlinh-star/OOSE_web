@@ -18,5 +18,7 @@ from django.urls import path
 from CustomerSite.views import *
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("home/",home)
+    path("home/",home),
+    path('laptops/', LaptopListView.as_view(), name='laptop_list'),
+    path('laptops/<int:pk>/', LaptopDetailView.as_view(), name='laptop_detail'),
 ]
