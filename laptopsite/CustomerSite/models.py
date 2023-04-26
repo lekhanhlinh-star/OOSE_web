@@ -30,6 +30,8 @@ class Order(models.Model):
         ('C', 'Complete'),
         ('R', 'Refunded'),
     ]
+    
+    
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     laptop = models.ForeignKey(Laptop, on_delete=models.CASCADE)
