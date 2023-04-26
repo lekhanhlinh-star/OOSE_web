@@ -32,7 +32,7 @@ class Order(models.Model):
     STATUS = [
         ('O', 'Order'),
         ('D', 'Delivery'),
-        ('C', 'Complete'),
+        ('C', 'Complet'),
     ]
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
