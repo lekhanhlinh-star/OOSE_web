@@ -13,6 +13,13 @@ class Laptop(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     image = models.ImageField(upload_to='images/')
+    processor = models.CharField(max_length=50,default='Unknown')
+    ram = models.CharField(max_length=50,default='Unknown')
+    storage = models.CharField(max_length=50,default='Unknown')
+    display_size = models.CharField(max_length=50,default='Unknown')
+    weight = models.CharField(max_length=50,default='Unknown')
+    battery_life = models.CharField(max_length=50,default='Unknown')
+    gpu=models.CharField(max_length=50,default='Unknown')
 
     def __str__(self):
         return self.name
