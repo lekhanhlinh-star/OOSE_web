@@ -75,13 +75,13 @@ WSGI_APPLICATION = "laptopsite.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-      "default": {
-       'ENGINE': 'django.db.backends.mysql',
+    "default": {
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'OOSE_LAPTOP_DB',
         'USER': 'root',
-        'PASSWORD': 'password',
-        'HOST':'localhost',
-        'PORT':'3306',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
