@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <title>Product</title>
     <title>Metaverse Laptop</title>
-    <link rel="icon" href="../image/logo-re.png">
-    <link href="../css/style-product.css" rel="stylesheet">
-    <link href="../css/responsiveIndex.css" rel="stylesheet">
-    <link href="../fonts/themify-icons/themify-icons.css" rel="stylesheet">
-    <link href="../fonts/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet">
-    <link href="../fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="icon" href= {% static "/image/logo-re.png" %}    >
+    <link href={% static "/css/style-product.css"  %}                 rel="stylesheet">
+    <link href={% static   "/css/responsiveIndex.css" %}                rel="stylesheet">
+    <link href={% static  "/fonts/themify-icons/themify-icons.css" %}                 rel="stylesheet">
+    <link href={% static     "/fonts/font-awesome-4.7.0/css/font-awesome.css" %}             rel="stylesheet">
+    <link href={% static "/fonts/font-awesome-4.7.0/css/font-awesome.min.css" %}                  rel="stylesheet">
     <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
           integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
@@ -20,7 +22,7 @@
           integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="../css/reponsiveProduct.css">
+    <link rel="stylesheet"  href={% static   "../css/reponsiveProduct.css" %}  >
 </head>
 
 <body>
@@ -138,29 +140,36 @@
 <div id="product-page">
     <div id="content-product">
         <div class="infor-product">
+        {% block content %}
             <div class="product-details">
-                <div id="product-image" class="product-image" style='background-image: url("../image/dell/dell1/dell1.png")'></div>
+                <div id="product-image" class="product-image" style="background-image:  url( {% static laptop.image.0 %} ) "></div>
                 <div class="details-image">
-                    <div class="details-image-item" style='background-image: url("../image/dell/dell1/dell1.png")'></div>
-                    <div class="details-image-item" style="background-image: url('../image/dell/dell1/dell2.png')"></div>
-                    <div class="details-image-item" style="background-image: url('../image/dell/dell1/dell3.png')"></div>
-                    <div class="details-image-item" style="background-image: url('../image/dell/dell1/dell4.png')"></div>
-                    <div class="details-image-item" style="background-image: url('../image/dell/dell1/dell5.png')"></div>
+                
+                 {% for image in laptop.image|slice:"1:" %}
+                   <div class="details-image-item" style="background-image: url(  {% static image %}   )"></div>
+                
+                {% endfor %}
+                  
                 </div>
             </div>
+           
+       
+            
             <div class="product-sale">
-                <h1 class="title-pro">Màn hình LCD VIEWSONIC VP2458 (1920 x 1080/IPS/60Hz/5 ms)</h1>
-                <div class="trademark">Thương hiệu: VIEWSONIC</div>
+                <h1 class="title-pro"> {{laptop.name}} </h1>
+                <div class="trademark">Thương hiệu: {{laptop.brand}} </div>
                 <div class="price-product">6.250.000 VND</div>
                 <div class="border-pro"></div>
                 <div class="BOXKHUYENMAILIENQUAN">
                     <div class="css-mz7xyg">Thông tin:</div>
                     <ul>
-                        <li> Kích thước: 23.8" (1920 x 1080), Tỷ lệ 16:9</li>
-                        <li> Tấm nền IPS, Góc nhìn: 178 (H) / 178 (V)</li>
-                        <li> Tần số quét: 60Hz , Thời gian phản hồi 5 ms</li>
-                        <li> HIển thị màu sắc: 16.7 triệu màu</li>
-                        <li> Cổng hình ảnh: 1 x DisplayPort 1.2a, 1 x HDMI 1.4, 1 x VGA/D-sub</li>
+                        <li>Processor:  {{laptop.processor}} </li>
+                        <li>VGA:  {{laptop.VGA}} </li>
+                        <li>Hard disk:  {{laptop.hard_disk}} </li>
+                         <li>Wireless:  {{laptop.wireless}} </li>
+                        
+                        <li> Bảo hàng  {{laptop.warranty}} tháng</li>
+                       
                     </ul>
                 </div>
                 <div class="border-pro"></div>
@@ -232,26 +241,24 @@
                                     <tbody>
                                     <tr>
                                         <td> CPU</td>
-                                        <td> AMD Ryzen™ 5 5600H Processor (3.3GHz, 16MB Cache, Up to 4.2GHz, 6
-                                            Cores, 12 Threads)
+                                        <td> {{laptop.processor}}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td> Memory</td>
-                                        <td> 8GB DDr4 Bus 3200Mhz (2 Slot, 4GB x 02, Dual Chanel)</td>
+                                        <td> {{laptop.ram}}</td>
                                     </tr>
                                     <tr>
                                         <td> Hard Disk</td>
-                                        <td> 512GB PCIe® NVMe™ M.2 SSD (Support x 1 Slot SSD M2 PCIe)</td>
+                                        <td> {{laptop.hard_disk}}</td>
                                     </tr>
                                     <tr>
                                         <td> VGA</td>
-                                        <td> NVIDIA® GeForce® GTX1650 with 4GB GDDR6 / AMD Radeon™ Graphics</td>
+                                        <td> {{laptop.VGA}}</td>
                                     </tr>
                                     <tr>
                                         <td> Display</td>
-                                        <td> 16.1 inch Full HD (1920 x 1080) 144Hz IPS Micro Edge Anti Glare 250
-                                            Nits
+                                        <td> {{laptop.display_size }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -309,6 +316,7 @@
             </div>
         </div>
     </div>
+     {% endblock %}
 
     <div class="bestseller">
         <div class="bestseller-main">
@@ -539,8 +547,8 @@
 <!--Back to top-->
 <button id="myBtn">&#8593;</button>
 </body>
-<script src="../js/register.js"></script>
-<script src="../js/register.js"></script>
+<script src={%static "/js/register.js" %}   ></script>
+<script src={%static  "/js/register.js" %}  ></script>
 <script crossorigin="anonymous" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
         src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script crossorigin="anonymous"
@@ -548,14 +556,14 @@
         referrerpolicy="no-referrer"
         src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 <!--<script src="../js/slider.js"></script>-->
-<script src="../js/CartAtHover.js"></script>
-<script src="../js/ripple-button.js"></script>
-<script src="../js/product-bestseller.js"></script>
-<script src="../js/nav-responsive.js"></script>
-<script src="../js/BackToTop.js"></script>
-<script src="../js/Scroll-Indicator.js"></script>
-<script src="../js/visibleCart.js"></script>
-<script src="../js/clickAddCart.js"></script>
-<script src="../js/hover-product.js"></script>
-<script src="../js/view-image-product.js"></script>
+<script src={% static "/js/CartAtHover.js" %} ></script>
+<script src={% static "/js/ripple-button.js" %} ></script>
+<script src={% static "/js/product-bestseller.js"%} ></script>
+<script src={% static "/js/nav-responsive.js" %}></script>
+<script src={% static "/js/BackToTop.js"  %} ></script>
+<script src={% static "/js/Scroll-Indicator.js" %} ></script>
+<script src={% static "/js/visibleCart.js" %} ></script>
+<script src={% static  "/js/clickAddCart.js"%}></script>
+<script src={% static "/js/hover-product.js" %} ></script>
+<script src={% static "/js/view-image-product.js" %} ></script>
 </html>

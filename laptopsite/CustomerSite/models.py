@@ -1,28 +1,32 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.views.generic.detail import DetailView
+from django.shortcuts import get_object_or_404
 
 
 class Brand(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
 class Laptop(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=13, decimal_places=2,default=0)
     description = models.TextField()
-    image = models.ImageField(upload_to='images/')
-    processor = models.CharField(max_length=50,default='Unknown')
-    ram = models.CharField(max_length=50,default='Unknown')
-    storage = models.CharField(max_length=50,default='Unknown')
-    display_size = models.CharField(max_length=50,default='Unknown')
-    weight = models.CharField(max_length=50,default='Unknown')
-    battery_life = models.CharField(max_length=50,default='Unknown')
-    gpu=models.CharField(max_length=50,default='Unknown')
-
+    image = models.JSONField(default=list)
+    processor = models.CharField(max_length=100,default='Unknown')
+    ram = models.CharField(max_length=100,default='Unknown')
+    hard_disk = models.CharField(max_length=100,default='Unknown')
+    display_size = models.CharField(max_length=100,default='Unknown')
+    weight = models.CharField(max_length=100,default='Unknown')
+    battery_life = models.CharField(max_length=100,default='Unknown')
+    VGA=models.CharField(max_length=100,default='Unknown')
+    wireless=models.CharField(max_length=100,default='Unknown')
+    warranty=models.IntegerField(default=24)
+    quantity=models.IntegerField(default=0)
     def __str__(self):
         return self.name
 
@@ -47,7 +51,7 @@ class Order(models.Model):
     quantity = models.PositiveIntegerField()
     status = models.CharField(max_length=1, choices=STATUS)
     created_at = models.DateTimeField(auto_now_add=True)
-    pay = models.BooleanField()
+    pay = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.customer.username} - {self.laptop.name}"
