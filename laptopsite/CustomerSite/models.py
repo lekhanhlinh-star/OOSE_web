@@ -43,7 +43,7 @@ class Order(models.Model):
     STATUS = [
         ('O', 'Order'),
         ('D', 'Delivery'),
-        ('C', 'Complet'),
+        ('C', 'Complete'),
     ]
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -74,3 +74,22 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.customer.user.username} - {self.order.laptop.name}"
+    
+class Manager(User):
+    phone_number = models.CharField(max_length=20)
+    address = models.CharField(max_length=200)
+    citizenID = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.username
+
+class voucher(models.Model):
+    id=models.CharField(max_length=20, primary_key=True)
+    value=models.FloatField(default=0)
+    description=models.TextField()
+    quantity=models.IntegerField(default=0)
+    def __str__(self):
+        return self.id
+
+
+
