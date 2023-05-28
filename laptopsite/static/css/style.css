@@ -1119,12 +1119,14 @@ body, html {
     /*margin: 8px 8px 16px 8px;*/
     margin-bottom: 16px;
     /*flex-wrap: wrap;*/
+    
 }
 
 #main #content1 .title-filter-product {
     /*width: 100%;*/
     height: auto;
     padding: 16px 16px 16px 8px;
+    
 }
 
 #main #content1 .filter-another {
@@ -1158,7 +1160,10 @@ body, html {
     margin-left: 32px;
     display: none;
 }
-
+.filter-items .filter-item a {
+    text-decoration: none; /* Remove the underline */
+    /* Add any other styles you want for the filter item links */
+  }
 #main #content1 .input-filter-product {
     border: none;
     outline: none;

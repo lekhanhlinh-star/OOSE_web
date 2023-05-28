@@ -23,6 +23,8 @@
           referrerpolicy="no-referrer" rel="stylesheet"/>
 
     <link rel="stylesheet"  href={% static   "../css/reponsiveProduct.css" %}  >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
 <body>
@@ -59,7 +61,7 @@
                 </a>
             </li>
             <li id="li-cart" class="header_sub-list">
-                <a class="font-14 hover-header" href="cart.html">
+                <a class="font-14 hover-header" href="/cart">
                     <i class="hover-header1 fas fa-shopping-cart"></i>Giỏ hàng
                 </a>
                 <div id="icon-cart" class="icon-cart"></div>
@@ -123,7 +125,7 @@
 <!--            <div class="total-product">Tổng tiền (2) sản phẩm</div>-->
             <div class="total-price"></div>
         </div>
-        <div role="button" class="btn-view-cart"><a href="cart.html" class="btn-tt">Xem giỏ hàng</a></div>
+        <div role="button" class="btn-view-cart"><a href="/cart" class="btn-tt">Xem giỏ hàng</a></div>
     </div>
 </div>
 <div id="view-image-product">
@@ -141,12 +143,37 @@
     <div id="content-product">
         <div class="infor-product">
         {% block content %}
+
+
+
+
+
+            <script>
+    {% if messages %}
+        {% for message in messages %}
+            Toastify({
+                text: "{{ message }}",
+                duration: 3000,
+                gravity: "center",
+                position: "center",
+                offset: {
+                    x: 0,
+                    y: 50
+                },
+                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                stopOnFocus: true,
+            }).showToast();
+        {% endfor %}
+    {% endif %}
+</script>
+
+
             <div class="product-details">
-                <div id="product-image" class="product-image" style="background-image:  url( {% static laptop.image.0 %} ) "></div>
+                <div id="product-image" class="product-image" style="background-image:  url( {{ laptop.images.first.image.url }} ) "></div>
                 <div class="details-image">
                 
-                 {% for image in laptop.image|slice:"1:" %}
-                   <div class="details-image-item" style="background-image: url(  {% static image %}   )"></div>
+                 {% for image in laptop.images.all|slice:"1:" %}
+                   <div class="details-image-item" style="background-image: url(  {{  image.image.url }}   )"></div>
                 
                 {% endfor %}
                   
@@ -158,7 +185,7 @@
             <div class="product-sale">
                 <h1 class="title-pro"> {{laptop.name}} </h1>
                 <div class="trademark">Thương hiệu: {{laptop.brand}} </div>
-                <div class="price-product">6.250.000 VND</div>
+                <div class="price-product"> {{laptop.price|floatformat:0}} VND</div>
                 <div class="border-pro"></div>
                 <div class="BOXKHUYENMAILIENQUAN">
                     <div class="css-mz7xyg">Thông tin:</div>
@@ -175,7 +202,9 @@
                 <div class="border-pro"></div>
                 <div class="btn-pro">
                     <div class="mua-ngay"><a href="" class="btn-mua ripple">MUA NGAY</a> </div>
-                    <div class="them-vao-gio"><a role="button" id="them-vao-gio"  class="btn-mua ripple">THÊM VÀO GIỎ HÀNG</a></div>
+                    <div class="them-vao-gio"><a     href="{% url 'add_to_cart' laptop.id 1 %}"  role="button" id="them-vao-gio"  class="btn-mua ripple">THÊM VÀO GIỎ HÀNG</a></div>
+
+                    
                 </div>
             </div>
 
@@ -567,3 +596,12 @@
 <script src={% static "/js/hover-product.js" %} ></script>
 <script src={% static "/js/view-image-product.js" %} ></script>
 </html>
+
+
+
+
+
+
+
+
+

@@ -19,6 +19,60 @@
           integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
           referrerpolicy="no-referrer" rel="stylesheet"/>
     <link href="{% static  "/css/responsiveIndex.css"  %}"  rel="stylesheet">
+    <style>
+    .filter-items .filter-item a {
+  text-decoration: none;
+  color: black;
+}
+
+.filter-items .filter-item.selected a {
+  color: red; /* Change the color for the selected filter item */
+}
+.filter-item-another a {
+  text-decoration: none;
+  color: black;
+}
+
+.filter-item-another a.selected {
+  color: red; /* Change the color for the selected sorting option */
+  font-weight: bold; /* Apply bold font weight to the selected sorting option */
+}
+
+.input-filter-product {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.btn-search-filter {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-search-filter:hover {
+  background-color: #45a049;
+}
+.filter-items .filter-item a {
+  text-decoration: none;
+  color: black;
+}
+
+.filter-items .filter-item a.selected,
+.filter-items .filter-item a:hover {
+  color: red; /* Change the color for the selected and hovered filter items */
+}
+
+.filter-items .filter-item.selected .tick {
+  display: block; /* Show the tick icon for the selected filter item */
+}
+
+.filter-items .tick {
+  display: none; /* Hide the tick icon by default */
+}
+
+    </style>
 </head>
 <body>
 <div id="main">
@@ -28,9 +82,9 @@
                 <!--                <img src="../image/img_1.png" alt="" class="logo">-->
             </div>
         </a>
-        <form action="" class="header_search">
+        <form action="{% url 'laptop_list' %}" class="header_search" method="GET">
             <div class="search">
-                <input class="header_input-search" placeholder="Nhập từ khóa cần tìm kiếm" required type="text">
+                <input class="header_input-search" name="search_query" placeholder="Nhập từ khóa cần tìm kiếm" required type="text">
                 <button class="header_btn-search" role="button">
                     <i class="fas fa-search"></i>
                 </button>
@@ -38,29 +92,16 @@
         </form>
         <div class="header_list" id="header-list-id">
             <ul class="header_list-item">
-                <li class="header_sub-list">
-                    <a class="font-14 hover-header" href="product-page.html">
-                        <i class="hover-header1 fas fa-laptop"></i>Sản phẩm
-                    </a>
-                </li>
-                <li class="header_sub-list">
-                    <a class="font-14 hover-header" href="tutorial-page.html">
-                        <i class="hover-header1 fas fa-clipboard-check"></i>Hướng dẫn
-                    </a>
-                </li>
-                <li class="header_sub-list">
-                    <a class="font-14 hover-header" href="about-us.html">
-                        <i class="hover-header1 fas fa-users"></i>Thông tin
-                    </a>
-                </li>
+               
+
                 <li class="header_sub-list" id="li-cart">
-                    <a class="font-14 hover-header" href="cart.html">
+                    <a class="font-14 hover-header" href={% url "cart_list"%}>
                         <i class="hover-header1 fas fa-shopping-cart"></i>Giỏ hàng
                     </a>
                     <div class="icon-cart" id="icon-cart"></div>
                 </li>
                 <li class="header_sub-list">
-                    <a class="font-14 hover-header js-btn-login" role="button">
+                    <a class="font-14 hover-header js-btn-login"  href="{% url 'login' %}" role="button">
                         <i class="hover-header1 fas fa-user"></i>Đăng nhập
                     </a>
                 </li>
@@ -154,71 +195,48 @@
                     Thương hiệu
                 </div>
                 <div class="filter-items">
-                    <div class="filter-item">DELL
+                {% block content %}
+                    
+                    {% for brand in brands%}
+                    <div class="filter-item">
+                    
+            <a href="{% url 'laptop_list' %}?brand={{ brand.id}}">{{ brand }}</a>
+                  
                         <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                     </div>
-                    <div class="filter-item">MSI
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                    <div class="filter-item">LENOVO
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                    <div class="filter-item">ACER
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                    <div class="filter-item">ASUS
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                    <div class="filter-item">HP
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
+                   {% endfor %}
                 </div>
             </div>
             <div class="filter">
-                <div class="title-filter">
-                    Màu sắc
-                </div>
-                <div class="filter-items">
-                    <div class="filter-item">Đen
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                    <div class="filter-item">Xám
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                    <div class="filter-item">Bạc
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                    <div class="filter-item">Vàng hồng
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                </div>
+                
             </div>
             <div class="filter">
                 <div class="title-filter">
                     Series CPU
                 </div>
                 <div class="filter-items">
-                    <div class="filter-item">Core i5
+
+                    <div class="filter-item">
+                     <a href="{% url 'laptop_list' %}?cpu_type=i3"> Core i3 </a>
+
                         <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                     </div>
-                    <div class="filter-item">Core i7
+                    <div class="filter-item">
+                     <a href="{% url 'laptop_list' %}?cpu_type=i5"> Core i5 </a>
                         <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                     </div>
-                    <div class="filter-item">Ryzen 7
+                    <div class="filter-item">
+                     <a href="{% url 'laptop_list' %}?cpu_type=i7"> Core i7 </a>
+
                         <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                     </div>
-                    <div class="filter-item">Core i3
+                    <div class="filter-item">
+                     <a href="{% url 'laptop_list' %}?cpu_type=i9"> Core i9 </a>
+
                         <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                     </div>
-                    <div class="filter-item">Ryzen 5
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                    <div class="filter-item">Ryzen 9
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                    <div class="filter-item">Core i9
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
+                    
+                    
 
                 </div>
             </div>
@@ -226,38 +244,42 @@
                 <div class="title-filter">
                     Dung lượng RAM
                 </div>
+
+
                 <div class="filter-items">
-                    <div class="filter-item">4GB
+                
+                    <div class="filter-item">
+                    <a    href="{% url 'laptop_list' %}?ram_size=4GB"   style="text-decoration: none;" class="filter-link"> 4 GB</a>
                         <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                     </div>
-                    <div class="filter-item">8GB
+                    <div class="filter-item">
+                    <a href="{% url 'laptop_list' %}?ram_size=8GB"  style="text-decoration: none;" class="filter-link">8 GB</a>
                         <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                     </div>
-                    <div class="filter-item">16GB
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
+                    <div class="filter-item">
+                    <a href="{% url 'laptop_list' %}?ram_size=16GB"  style="text-decoration: none;"class="filter-link">16 GB</a>
+
+                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"class="filter-link"></i></div>
                     </div>
-                    <div class="filter-item">32GB
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
+                    <div class="filter-item">
+                    <a href="{% url 'laptop_list' %}?ram_size=32GB"  style="text-decoration: none;"class="filter-link">32 GB</a>
+
+                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"class="filter-link"></i></div>
                     </div>
                 </div>
             </div>
             <div class="filter">
                 <div class="title-filter">
-                    Series CPU
+                   
                 </div>
                 <div class="filter-items">
-                    <div class="filter-item">Vostro
+                    <div class="filter-item">
+                    <a href="{% url 'laptop_list' %}"  style="text-decoration: none;">ALL</a>
+
+              
                         <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                     </div>
-                    <div class="filter-item">Latitude
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                    <div class="filter-item">Inspiron
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
-                    <div class="filter-item">Gaming
-                        <div class="tick"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
-                    </div>
+
                 </div>
             </div>
 
@@ -270,10 +292,14 @@
 <!--                <div class="filter-item-another">Bán chạy-->
 <!--                    <div class="tick tick-another"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>-->
 <!--                </div>-->
-                <div class="filter-item-another">Giá giảm dần
+                <div class="filter-item-another">
+                <a href="{% url 'laptop_list' %}?sort_by=price_asc" class="{% if request.GET.sort_by == 'price_asc' %}selected{% endif %}">   Giá giảm dần </a>
+              
                     <div class="tick tick-another"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                 </div>
-                <div class="filter-item-another">Giá tăng dần
+                <div class="filter-item-another">
+                <a href="{% url 'laptop_list' %}?sort_by=price_desc" class="{% if request.GET.sort_by == 'price_desc' %}selected{% endif %}">Giá tăng dần</a>
+                
                     <div class="tick tick-another"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                 </div>
                 <div class="price-filter">
@@ -293,29 +319,43 @@
             <div class="all-product-cover">
                 
                
-                    {% block content %}
+                 
                  
                     
                         {% for laptop in object_list %}
+
+
+
+
+                        {% if laptop.is_active%}
+                           </td>
                         <div class="hover-all-product">
                     <a class="all-product-item" href="{{laptop.id}}">
+                    
                         <div class="status-sale">-11%</div>
+                       
                         <div class="img-all-product-item"
-                             style="background-image: url( {% static laptop.image.0 %} )">
+                     
+                             style="background-image: url( {{laptop.images.first.image.url}} )">
                             <!--                        <img src="../image/all-product/unnamed.jpg" style="visibility: hidden;" />-->
                         </div>
+                        {% if laptop.quantity < 1 %}
                         <div class="status">HẾT HÀNG</div>
+                        {% endif %}
                         <div class="infor-all-product-item">
                             {{laptop.name}}
                         </div>
                         <div class="price-all-product-item">
-                          {{laptop.price}}
+                          {{laptop.price }}
                         </div>
                         <div class="sale-all-product-item">
-                            <span class="origin-price">33.999.000đ</span> <span>11%</span>
+                            <span class="origin-price">{{laptop.price}}đ</span> <span>11%</span>
                         </div>
                     </a>
                 </div>
+                      
+                        {% endif %}
+                      
                        
 
                         {% endfor %}
@@ -428,3 +468,18 @@
 <script src="../js/slick-all-product.js"></script>
 <script src="../js/click-filter.js"></script>
 </html>
+
+<script>
+
+const filterLinks = document.querySelectorAll('.filter-link');
+
+filterLinks.forEach(link => {
+  link.addEventListener('click', function() {
+    // Remove 'selected' class from all filter links
+    filterLinks.forEach(link => link.classList.remove('selected'));
+    // Add 'selected' class to the clicked filter link
+    this.classList.add('selected');
+  });
+});
+
+</script>

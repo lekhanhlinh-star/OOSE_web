@@ -34,6 +34,9 @@
         "name": "Acer"
       }
     },
+    
+  
+
     {
       "model": "CustomerSite.Laptop",
       "pk": 1,
@@ -52,7 +55,8 @@
         "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
         "battery_life":"4 Cells 70 Whrs Battery",
         "warranty":24,
-        "quantity":10
+        "quantity":10,
+        "vourch":1
 
         
       }
@@ -78,7 +82,8 @@
         "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
         "battery_life":"4 Cells 70 Whrs Battery",
         "warranty":24,
-        "quantity":10
+        "quantity":10,
+        "vourch":1
 
 
         
@@ -102,7 +107,8 @@
           "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
           "VGA": "Nvidia GeForce RTX 3080",
           "warranty": 12,
-          "quantity":10
+          "quantity":10,
+          "vourch":1
 
       }
     },
@@ -124,7 +130,8 @@
           "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
           "VGA": "Nvidia GeForce RTX 3080",
           "warranty": 12,
-          "quantity":10
+          "quantity":10,
+          "vourch":1
 
       }
     }, {
@@ -145,7 +152,8 @@
           "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
           "VGA": "Nvidia GeForce RTX 3080",
           "warranty": 12,
-          "quantity":10
+          "quantity":10,
+          "vourch":1
 
       }
     }, {
@@ -166,7 +174,8 @@
           "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
           "VGA": "Nvidia GeForce RTX 3080",
           "warranty": 12,
-          "quantity":10
+          "quantity":10,
+          "vourch":1
 
       }
     }, {
@@ -187,7 +196,8 @@
           "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
           "VGA": "Nvidia GeForce RTX 3080",
           "warranty": 12,
-          "quantity":10
+          "quantity":10,
+          "vourch":1
 
       }
     }, {
@@ -208,7 +218,8 @@
           "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
           "VGA": "Nvidia GeForce RTX 3080",
           "warranty": 12,
-          "quantity":10
+          "quantity":10,
+          "vourch":1
 
       }
     }, {
@@ -229,7 +240,8 @@
           "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
           "VGA": "Nvidia GeForce RTX 3080",
           "warranty": 12,
-          "quantity":10
+          "quantity":10,
+          "vourch":1
 
       }
     }, {
@@ -250,7 +262,8 @@
           "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
           "VGA": "Nvidia GeForce RTX 3080",
           "warranty": 12,
-          "quantity":10
+          "quantity":10,
+          "vourch":1
 
       }
     }, {
@@ -271,7 +284,8 @@
           "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
           "VGA": "Nvidia GeForce RTX 3080",
           "warranty": 12,
-          "quantity":10
+          "quantity":10,
+          "vourch":1
 
       }
     }, {
@@ -292,7 +306,8 @@
           "wireless":"Intel Wi Fi 6 (802.11ax) + Bluetooth 5.1",
           "VGA": "Nvidia GeForce RTX 3080",
           "warranty": 12,
-          "quantity":10
+          "quantity":10,
+          "vourch":1
 
       }
     }
