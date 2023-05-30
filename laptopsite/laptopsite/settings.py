@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'OOSE_LAPTOP_DB',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': 'toan2k22910@@@',
         'HOST': 'localhost',
         'PORT': '3306',
     }
