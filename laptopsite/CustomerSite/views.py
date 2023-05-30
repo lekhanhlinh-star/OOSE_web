@@ -5,11 +5,13 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login
 from .Forms import LaptopForm,CustomerCreationForm,ImageForm
+from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from django.contrib import messages
 # Create your views here.
+from django.contrib.auth import logout
 import re
 import nltk
 from nltk.corpus import stopwords
@@ -42,10 +44,11 @@ def preprocess_text(text):
     return preprocessed_text
 
 import json
-from .models import Laptop,Image,Brand
+from .models import Laptop,Image,Brand,Account, Order, OrderItem
 
 def home(request):
     return render(request, 'index.html')
+
 
 def admin(request):
     laptops = Laptop.objects.all()
@@ -125,92 +128,146 @@ class LaptopListView(ListView):
         
         return context
     
-    
+
 class LaptopDetailView(DetailView):
     model = Laptop
     template_name = 'product-page.html'
     
-    
-def add_to_cart(request, laptop_id, quantity=1):
-    # Check if the laptop_id parameter is null
-    if laptop_id is None or laptop_id == '':
-        return JsonResponse({'status': 'error', 'message': 'Invalid laptop ID'})
-
-    # Get the laptop and quantity from the request
-    laptop = Laptop.objects.get(id=laptop_id)
-    quantity = int(quantity)
-
-    # Get the current cart data from the user's cookies
-    cart_data = request.COOKIES.get('cart', '{}')
-    cart = json.loads(cart_data)
-
-    # Add the new laptop to the cart
-    if str(laptop.id) in cart:
-        cart[str(laptop.id)] += quantity
-    else:
-        cart[str(laptop.id)] = quantity
-
-    # Convert the cart data to a JSON string and store it in a cookie
-    response=  redirect('laptop_detail', pk=laptop.id)
-
-    # response = JsonResponse({'status': 'success'})
-    response.set_cookie('cart', json.dumps(cart))
-    messages.success(request, 'Item added to cart successfully!')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Retrieve the current laptop object
+        current_laptop = self.get_object()
+        
+        # Retrieve all laptops from the database excluding the current laptop
+        all_laptops = Laptop.objects.exclude(pk=current_laptop.pk)
+        
+        # Extract the laptop descriptions
+        laptop_descriptions = [
+            ' '.join([
+                laptop.description,
+                laptop.brand.name,
+                laptop.ram,
+                laptop.VGA,
+                laptop.name,
+                laptop.processor
+            ]) for laptop in all_laptops
+        ]
+        
+        # Create a TF-IDF vectorizer and fit it on the laptop descriptions
+        vectorizer = TfidfVectorizer()
+        laptop_vectors = vectorizer.fit_transform(laptop_descriptions)
+        
+        # Transform the current laptop description into a vector
+        current_laptop_vector = vectorizer.transform([' '.join([
+            current_laptop.description,
+            current_laptop.brand.name,
+            current_laptop.ram,
+            current_laptop.VGA,
+            current_laptop.name,
+            current_laptop.processor
+        ])])
+        
+        # Calculate the similarity scores between the current laptop vector and other laptop vectors
+        similarity_scores = cosine_similarity(current_laptop_vector, laptop_vectors).flatten()
+        laptop_scores = list(zip(all_laptops,   similarity_scores))
+        print( laptop_scores)
+        laptop_scores.sort(key=lambda x: x[1], reverse=True)
+        
+        similar_laptops  = [laptop for laptop, _ in laptop_scores]
+        similar_laptops=similar_laptops[:6]
+        
+       
+        
+        
+        context['similar_laptops'] = similar_laptops
+        
+        return context
    
-    return  response
+def add_to_cart(request, laptop_id,quantity=1):
+    if request.method == 'GET':
+        laptop = Laptop.objects.get(id=laptop_id)
+        
+        account = request.user.id
+        # Assuming the authenticated user has an associated Account instance
+        Customer=Account.objects.get(id=account)
+        print("account:",Customer)
+        quantity = int(quantity)
+        
+        Check=Customer.add_to_cart(laptop_id, quantity)
+        if Check==True:
+            messages.success(request, 'Item added to cart successfully!')
+        else:
+            messages.error(request, 'Item added to cart error ')
+            
+            
+        
+    
+    return redirect('laptop_detail', pk=laptop_id)
 class CartListView(ListView):
-    model = Laptop
+    model = OrderItem
     template_name = 'cart.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_authenticated:
+            # Retrieve the cart items for the logged-in user
+            order = Order.objects.filter(account=user, complete=False).first()
+            if order:
+                queryset = order.orderitem_set.all()
+                return queryset
+
+        return OrderItem.objects.none()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Retrieve the items in the cart from a cookie
-        cart_data = self.request.COOKIES.get('cart', '{}')
-        cart = json.loads(cart_data)
+        user = self.request.user
+        if user.is_authenticated:
+            # Retrieve the cart items for the logged-in user
+            order = Order.objects.filter(account=user, complete=False).first()
+            if order:
+                # Create a list of dictionaries that contain the OrderItem object, the quantity,
+                # the total price, and the associated Laptop for each item
+                item_data = []
+                for order_item in order.orderitem_set.all():
+                    quantity = order_item.quantity
+                    total_price = quantity * order_item.product.price
+                    item_data.append({
+                        'order_item': order_item,
+                        'quantity': quantity,
+                        'total_price': total_price,
+                        'product': order_item.product,
+                    })
 
-        # Retrieve the associated Laptop objects from the database
-        laptop_ids = [int(id) for id in cart.keys()]
-        laptops = Laptop.objects.filter(id__in=laptop_ids)
-
-        # Create a list of dictionaries that contain the Laptop object, the quantity and the total price of each item
-        item_data = []
-        for laptop in laptops:
-            quantity = cart[str(laptop.id)]
-            total_price = quantity * laptop.price
-            item_data.append({'product': laptop, 'quantity': quantity, 'total_price': total_price})
-
-        # Add the item data to the context dictionary
-        context['items'] = item_data
+                # Add the item data to the context dictionary
+                context['items'] = item_data
 
         return context
     
     
     
 def modify_cart_quantity(request, laptop_id):
-    # Ret9rieve the new quantity from the request
- 
     if request.method == 'POST':
         print(request.POST.get('quantity'))
         new_quantity = int(request.POST.get('quantity'))
 
-        # Get the current cart data from the user's cookies
-        cart_data = request.COOKIES.get('cart', '{}')
-        cart = json.loads(cart_data)
+        # Retrieve the logged-in user's cart
+        user = request.user
+        order = Order.objects.filter(account=user, complete=False).first()
+        if order:
+            # Get the order item for the given laptop ID
+            order_item = get_object_or_404(OrderItem, order=order, product_id=laptop_id)
 
-        # Check if the laptop with the given ID is in the cart
-        if str(laptop_id) in cart:
-            # Update the quantity of the laptop in the cart
-            cart[str(laptop_id)] = new_quantity
+            # Update the quantity of the order item
+            order_item.quantity = new_quantity
+            order_item.save()
 
-            # Convert the updated cart data to a JSON string and store it in a cookie
-            response = redirect('cart')
-            response.set_cookie('cart', json.dumps(cart))
             messages.success(request, 'Cart quantity updated successfully!')
         else:
-            messages.error(request, 'Invalid laptop ID')
+            messages.error(request, 'Invalid cart')
 
-        return response
+    return redirect('cart')
     
 def add_laptop(request):
     if request.method == 'POST':
@@ -234,29 +291,25 @@ def add_laptop(request):
     return render(request, 'add_product.html', {'laptop_form': laptop_form,"image_form":image_form})
 
     
-def remove_from_cart(request, laptop_id):
-    # Check if the laptop_id parameter is null
-    if laptop_id is None or laptop_id == '':
-        return JsonResponse({'status': 'error', 'message': 'Invalid laptop ID'})
-
-    # Get the current cart data from the user's cookies
-    cart_data = request.COOKIES.get('cart', '{}')
-    cart = json.loads(cart_data)
-    print(cart)
-    # Remove the laptop from the cart
-    if str(laptop_id) in cart:
-        del cart[str(laptop_id)]
+def remove_from_cart(request, pk):
+    user = request.user
+    if user.is_authenticated:
+        account = request.user.id
+        # Assuming the authenticated user has an associated Account instance
+        Customer=Account.objects.get(id=account)
+        
+        Check= Customer.delete_itemcart(pk)
+        if Check==True:
+            messages.success(request, 'Item added to cart successfully!')
+            return redirect("cart_list")
+         
+        else:
+            messages.error(request, 'Item added to cart error ')
+            return redirect("cart_list")
+            
     else:
-        return JsonResponse({'status': 'error', 'message': 'Laptop not found in cart'})
-
-    # Convert the cart data to a JSON string and store it in a cookie
-
-    response=  redirect('cart_list')
-
-    response.set_cookie('cart', json.dumps(cart))
-    messages.success(request, 'Item removed from cart successfully!')
-
-    return response
+        return redirect("login")      
+   
 
 
 
@@ -345,5 +398,39 @@ def Filter(request):
     
     
     
-    
-    
+def subtract_quantity_cart(request,pk):
+    user = request.user
+    if user.is_authenticated:
+        account = request.user.id
+        # Assuming the authenticated user has an associated Account instance
+        Customer=Account.objects.get(id=account)
+        
+        Check= Customer.subtract_quantity_cart(pk)
+        if Check==True:
+            messages.success(request, 'Item added to cart successfully!')
+            return redirect("cart_list")
+         
+        else:
+            messages.error(request, 'Item added to cart error ')
+            return redirect("cart_list")
+            
+    else:
+        return redirect("login")  
+def add_quantity_cart(request,pk):
+    user = request.user
+    if user.is_authenticated:
+        account = request.user.id
+        # Assuming the authenticated user has an associated Account instance
+        Customer=Account.objects.get(id=account)
+        
+        Check= Customer.add_quantity_cart(pk)
+        if Check==True:
+            messages.success(request, 'Item added to cart successfully!')
+            return redirect("cart_list")
+         
+        else:
+            messages.error(request, 'Item added to cart error ')
+            return redirect("cart_list")
+            
+    else:
+        return redirect("login")        

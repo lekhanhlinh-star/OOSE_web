@@ -345,150 +345,44 @@
             </div>
         </div>
     </div>
-     {% endblock %}
 
     <div class="bestseller">
         <div class="bestseller-main">
             <div class="title-bestseller">
                 <div class="border-bestseller"></div>
-                <div class="title-main-bestseller">Bán chạy nhất</div>
+                <div class="title-main-bestseller">Sản phẩm bạn có thể</div>
                 <a class="view-all-bestseller" href="">Xem tất cả <i class="fas fa-angle-right"></i></a>
             </div>
+
+
+           
             <div class="product-bestseller">
-                <a class="click-action" href="">
+
+
+
+
+             {% for laptop in similar_laptops %}
+            
+             <a class="click-action" href={%  url "laptop_detail" pk=laptop.id %}>
                     <div class="product-bestseller-items">
-                        <div class="img-product-bestseller img-product-sell1"></div>
+                        <div class="img-product-bestseller"
+                               style="background-image: url( {{laptop.images.first.image.url}} )"          ></div>
                         <div class="product-bestseller-name">
-                            <div class="product-name">Đế tản nhiệt Laptop DEEPCOOL Windpal Mini</div>
-                            <div class="product-status">Còn 1 sản phẩm</div>
+                            <div class="product-name"> {{laptop.name}} </div>
+                            <div class="product-status">Còn {{laptop.quantity}} sản phẩm</div>
                         </div>
-                        <div class="product-price">228.000 ₫</div>
-                    </div>
-                </a><a class="click-action" href="">
-                <div class="product-bestseller-items">
-                    <div class="img-product-bestseller img-product-sell1"></div>
-                    <div class="product-bestseller-name">
-                        <div class="product-name">Đế tản nhiệt Laptop DEEPCOOL Windpal Mini</div>
-                        <div class="product-status">Còn 1 sản phẩm</div>
-                    </div>
-                    <div class="product-price">228.000 ₫</div>
-                </div>
-            </a><a class="click-action" href="">
-                <div class="product-bestseller-items">
-                    <div class="img-product-bestseller img-product-sell1"></div>
-                    <div class="product-bestseller-name">
-                        <div class="product-name">Đế tản nhiệt Laptop DEEPCOOL Windpal Mini</div>
-                        <div class="product-status">Còn 1 sản phẩm</div>
-                    </div>
-                    <div class="product-price">228.000 ₫</div>
-                </div>
-            </a><a class="click-action" href="">
-                <div class="product-bestseller-items">
-                    <div class="img-product-bestseller img-product-sell1"></div>
-                    <div class="product-bestseller-name">
-                        <div class="product-name">Đế tản nhiệt Laptop DEEPCOOL Windpal Mini</div>
-                        <div class="product-status">Còn 1 sản phẩm</div>
-                    </div>
-                    <div class="product-price">228.000 ₫</div>
-                </div>
-            </a><a class="click-action" href="">
-                <div class="product-bestseller-items">
-                    <div class="img-product-bestseller img-product-sell1"></div>
-                    <div class="product-bestseller-name">
-                        <div class="product-name">Đế tản nhiệt Laptop DEEPCOOL Windpal Mini</div>
-                        <div class="product-status">Còn 1 sản phẩm</div>
-                    </div>
-                    <div class="product-price">228.000 ₫</div>
-                </div>
-            </a><a class="click-action" href="">
-                <div class="product-bestseller-items">
-                    <div class="img-product-bestseller img-product-sell1"></div>
-                    <div class="product-bestseller-name">
-                        <div class="product-name">Đế tản nhiệt Laptop DEEPCOOL Windpal Mini</div>
-                        <div class="product-status">Còn 1 sản phẩm</div>
-                    </div>
-                    <div class="product-price">228.000 ₫</div>
-                </div>
-            </a><a class="click-action" href="">
-                <div class="product-bestseller-items">
-                    <div class="img-product-bestseller img-product-sell1"></div>
-                    <div class="product-bestseller-name">
-                        <div class="product-name">Đế tản nhiệt Laptop DEEPCOOL Windpal Mini</div>
-                        <div class="product-status">Còn 1 sản phẩm</div>
-                    </div>
-                    <div class="product-price">228.000 ₫</div>
-                </div>
-            </a><a class="click-action" href="">
-                <div class="product-bestseller-items">
-                    <div class="img-product-bestseller img-product-sell1"></div>
-                    <div class="product-bestseller-name">
-                        <div class="product-name">Đế tản nhiệt Laptop DEEPCOOL Windpal Mini</div>
-                        <div class="product-status">Còn 1 sản phẩm</div>
-                    </div>
-                    <div class="product-price">228.000 ₫</div>
-                </div>
-            </a><a class="click-action" href="">
-                <div class="product-bestseller-items">
-                    <div class="img-product-bestseller img-product-sell1"></div>
-                    <div class="product-bestseller-name">
-                        <div class="product-name">Đế tản nhiệt Laptop DEEPCOOL Windpal Mini</div>
-                        <div class="product-status">Còn 1 sản phẩm</div>
-                    </div>
-                    <div class="product-price">228.000 ₫</div>
-                </div>
-            </a><a class="click-action" href="">
-                <div class="product-bestseller-items">
-                    <div class="img-product-bestseller img-product-sell1"></div>
-                    <div class="product-bestseller-name">
-                        <div class="product-name">Đế tản nhiệt Laptop DEEPCOOL Windpal Mini</div>
-                        <div class="product-status">Còn 1 sản phẩm</div>
-                    </div>
-                    <div class="product-price">228.000 ₫</div>
-                </div>
-            </a>
-                <a class="click-action" href="">
-                    <div class="product-bestseller-items">
-                        <div class="img-product-bestseller  img-product-sell2"></div>
-                        <div class="product-bestseller-name">
-                            <div class="product-name">USB 64GB Kingston DT100G3</div>
-                            <div class="product-status">Còn 5 sản phẩm</div>
-                        </div>
-                        <div class="product-price">229.000 ₫</div>
+                        <div class="product-price">{{laptop.price}} ₫</div>
                     </div>
                 </a>
-                <a class="click-action" href="">
-                    <div class="product-bestseller-items">
-                        <div class="img-product-bestseller  img-product-sell3"></div>
-                        <div class="product-bestseller-name">
-                            <div class="product-name">USB 32GB SanDisk SDCZ73- G46 Ultra</div>
-                            <div class="product-status">Còn 10 sản phẩm</div>
-                        </div>
-                        <div class="product-price">157.000 ₫</div>
-                    </div>
-                </a>
-                <a class="click-action" href="">
-                    <div class="product-bestseller-items">
-                        <div class="img-product-bestseller  img-product-sell4"></div>
-                        <div class="product-bestseller-name">
-                            <div class="product-name">Box ổ cứng 2.5'' Orico 2588US3 Sata (3.0) (Đen)</div>
-                            <div class="product-status">Còn 6 sản phẩm</div>
-                        </div>
-                        <div class="product-price">172.000 ₫</div>
-                    </div>
-                </a>
-                <a class="click-action" href="">
-                    <div class="product-bestseller-items">
-                        <div class="img-product-bestseller  img-product-sell5"></div>
-                        <div class="product-bestseller-name">
-                            <div class="product-name">Box ổ cứng 2.5'' Orico 2588US3 Sata (3.0) (Bạc)</div>
-                            <div class="product-status">Còn 4 sản phẩm</div>
-                        </div>
-                        <div class="product-price">172.000 ₫</div>
-                    </div>
-                </a>
+                  
+            {% endfor %}
+               
+    
+               
             </div>
         </div>
     </div>
+     {% endblock %}
 
     <div id="footer">
         <div class="footer-main">

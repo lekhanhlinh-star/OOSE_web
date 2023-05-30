@@ -1,5 +1,5 @@
 from django import forms
-from .models import Laptop, Customer,Image
+from .models import Laptop, Account,Image
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import formset_factory
 from django.forms.models import inlineformset_factory
@@ -24,7 +24,7 @@ class CustomerCreationForm(UserCreationForm):
         self.fields['password2'].help_text = None
 
     class Meta:
-        model = Customer
+        model = Account
         fields = ('username', 'email', 'phone_number', 'address', 'password1', 'password2')
         labels = {
             'username': ('Username'),

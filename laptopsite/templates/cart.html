@@ -24,6 +24,8 @@
     <link href="{% static  "/fonts/font-awesome-4.7.0/css/font-awesome.min.css"    %}"   rel="stylesheet">
     <link rel="stylesheet" href="{% static "/css/cartResponsive.css"   %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 </head>
 <body>
 <div id="cart-main">
@@ -44,7 +46,7 @@
         <div id="header-list-id"  class="header_list">
             <ul class="header_list-item">
                 <li class="header_sub-list">
-                    <a class="font-14 hover-header" href="product-page.html">
+                    <a class="font-14 hover-header" href={% url "laptop_list"  %}>
                         <i class="hover-header1 fas fa-laptop"></i>Sản phẩm
                     </a>
                 </li>
@@ -125,6 +127,7 @@
 
 {% block content %}
   <h1>Cart</h1>
+ 
   {% if items %}
     <table>
      
@@ -132,38 +135,21 @@
 
 
         <div class="cart-item-info">
-         <script>
-    {% if messages %}
-        {% for message in messages %}
-            Toastify({
-                text: "{{ message }}",
-                duration: 3000,
-                gravity: "center",
-                position: "center",
-                offset: {
-                    x: 0,
-                    y: 50
-                },
-                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-                stopOnFocus: true,
-            }).showToast();
-        {% endfor %}
-    {% endif %}
-</script>
+         
                                 <div class="container">
 
                                     <div class="item">
                                         <div class="left-cart-item">
                                             <div class="item-checkbox item-padding">
                                                 
-                                                <a href="/remove_item_on_cart/{{ item.product.id }}/">
+                                                <a href={% url 'remove_from_cart' pk=item.order_item.pk %} >
                                                     <button type="button">
                                                         <i class="material-icons">delete</i>
                                                     </button>
                                                 </a>
                                             </div>
                                             <div class="item-thumbnail item-padding">
-                                                <img class="item-logo-thumbnail" src="{% static item.product.image.2 %}">
+                                                <img class="item-logo-thumbnail" src="{{ item.product.images.first.image.url }}">
                                             </div>
                                             <div class="item-info-container item-padding">
                                                 <span class="item-info-name smaller-text">{{item.product.name}}</span>
@@ -172,14 +158,16 @@
                                         </div>
                                         <div class="right-cart-item">
                                             <div class="btn-add-subtract">
-                                                <button class="btn-padding btn-subtract" onclick="decreaseQuantity({{ item.product.id }})" >
+                                                <button class="btn-padding btn-subtract" >
+                                                <button class="btn-padding btn-add"  > <a href={% url "subtract_quantity_cart" pk=item.order_item.pk %}>
+
                                                 
-                                                    <i class="icon-btn fas fa-chevron-down"></i>
+                                                    <i class="icon-btn fas fa-chevron-down"></i> </>
                                                  
                                                 </button>
-                                                <div class="btn-padding number"  id="quantity-{{ item.product.id }}">{{item.quantity}}</div>
-                                                <button class="btn-padding btn-add"   onclick="increaseQuantity({{ item.product.id }})">
-                                                    <i class="icon-btn fas fa-chevron-up"></i>
+                                                <div class="btn-padding number">{{item.quantity}}</div>
+                                                <button class="btn-padding btn-add"  > <a href={% url "add_quantity_cart" pk=item.order_item.pk %}>
+                                                    <i class="icon-btn fas fa-chevron-up"></i> </>
                                                 </button>
                                             </div>
                                             <div class="price">
@@ -395,70 +383,6 @@
 
 
 <script>
-
-function increaseQuantity(laptopId) {
-  const quantityElement = document.querySelector(`#quantity-${laptopId}`);
-  let quantity = parseInt(quantityElement.textContent);
-
-  // Increase the quantity by 1
-  quantity += 1;
-
-  // Update the quantity element
-  quantityElement.textContent = quantity;
-
-  // Send the updated quantity to the server
-  updateCartQuantity(laptopId, quantity);
-}
-
-function decreaseQuantity(laptopId) {
-  const quantityElement = document.querySelector(`#quantity-${laptopId}`);
-  let quantity = parseInt(quantityElement.textContent);
-
-  // Decrease the quantity by 1, but not below 1
-  if (quantity > 1) {
-    quantity -= 1;
-
-    // Update the quantity element
-    quantityElement.textContent = quantity;
-
-    // Send the updated quantity to the server
-    console.log(quantity)
-    updateCartQuantity(laptopId, quantity);
-  }
-}
-
-function updateCartQuantity(laptopId, quantity) {
-  const url = `/modify_cart_quantity/${laptopId}/`;
-  let data = {"quantity": quantity };
-  let csrfToken = getCookie('csrftoken');
-    console.log("data",data)
-  // Send an AJAX request to update the cart quantity
-  fetch(url, {
-     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrfToken
-    },
-    body: JSON.stringify(data)
-  })
-    .then(response => response.json())
-    .then(result => {
-      if (result.status === 'success') {
-        console.log('Cart quantity updated successfully!');
-      } else {
-        console.error('Failed to update cart quantity:', result.message);
-      }
-    })
-    .catch(error => {
-      console.error('Error updating cart quantity:', error);
-    });
-}
-
-function getCookie(name) {
-  const cookieValue = document.cookie.match('(^|;)\\s*' + name + '=([^;]*)');
-  return cookieValue ? cookieValue.pop() : '';
-}
-
 
 
 

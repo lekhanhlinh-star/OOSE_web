@@ -25,8 +25,10 @@ urlpatterns = [
     path('laptops/<int:pk>/', LaptopDetailView.as_view(), name='laptop_detail'),
     path('add_to_cart/<int:laptop_id>/<int:quantity>/',add_to_cart, name='add_to_cart'),
     path('cart/', CartListView.as_view(), name='cart_list'),
-    path('modify_cart_quantity/<int:laptop_id>/', modify_cart_quantity, name='modify_cart_quantity'),
-    path('remove_item_on_cart/<int:laptop_id>/',  remove_from_cart, name='remove_from_cart'),
+    path('subtract_quantity_cart/<int:pk>/',subtract_quantity_cart, name='subtract_quantity_cart'),
+    path('add_quantity_cart/<int:pk>/',add_quantity_cart, name='add_quantity_cart'),
+    
+    path('remove_item_on_cart/<int:pk>/',  remove_from_cart, name='remove_from_cart'),
     path('add_laptop/', add_laptop, name='add_laptop'),
     path('login/', login_view, name='login'),
     path('register/', register_view, name='register'),

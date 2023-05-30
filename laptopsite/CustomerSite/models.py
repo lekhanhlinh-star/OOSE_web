@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404
 
+from django.contrib import messages
+
 import decimal
 from django.contrib.auth import authenticate, login
 
@@ -53,20 +55,72 @@ class Image(models.Model):
     image = models.ImageField(null=True,blank=True)
 
 
-class Customer(User):
+class Account(User):
     phone_number = models.CharField(max_length=20)
     address = models.CharField(max_length=200)
 
     def __str__(self):
         return self.username
 
-  
+    def add_to_cart(self,laptop_id,quantity):
+        laptop = Laptop.objects.get(id=laptop_id)
+        quantity = int(quantity)
+        order, created = Order.objects.get_or_create(account= self ,complete=False)
+        order_item, created = OrderItem.objects.get_or_create(order=order, product=laptop)
+        order_item.quantity += quantity
+        try:
+            order_item.save()
+            order.save()
+            return True    
+            
+        except Exception as e:
+           return False
+    def subtract_quantity_cart(self,id_OrderItem):
+        itemCart=OrderItem.objects.get(id=id_OrderItem)
+        if itemCart.quantity>1:
+            itemCart.quantity=itemCart.quantity-1
+            try:
+                itemCart.save()
+                return True
+            except Exception as e:
+                return False
+        else:
+            return False
+    def add_quantity_cart(self,id_OrderItem):
+        itemCart=OrderItem.objects.get(id=id_OrderItem)
+        if itemCart.quantity:
+            itemCart.quantity=itemCart.quantity+1
+            try:
+                itemCart.save()
+                return True
+            except Exception as e:
+                return False
+        else:
+            return False
+            
+        
+    def delete_itemcart(self,id_OrderItem):
+        itemCart=OrderItem.objects.get(id=id_OrderItem)
+        if itemCart:
+            itemCart.delete()
+            return True
+        else:
+            return False
+        
+        
+        
+            
+
+        # Display a success message
+        
+        
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+    account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False)
-    transaction_id = models.CharField(max_length=100)
+    
+  
  
     def __str__(self):
         return str(self.id)
@@ -118,21 +172,12 @@ class Transaction(models.Model):
     
         
     
-class Manager(User):
-    phone_number = models.CharField(max_length=20)
-    address = models.CharField(max_length=200)
-    citizenID = models.CharField(max_length=20, unique=True)
-
-    def __str__(self):
-        return self.username
-
-
 
 
 
 
 class CheckoutDetail(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+    account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     phone_number = models.CharField(max_length=10, blank=True, null=True)
     total_amount = models.CharField(max_length=10, blank=True,null=True)

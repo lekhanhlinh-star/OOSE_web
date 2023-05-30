@@ -293,12 +293,12 @@
 <!--                    <div class="tick tick-another"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>-->
 <!--                </div>-->
                 <div class="filter-item-another">
-                <a href="{% url 'laptop_list' %}?sort_by=price_asc" class="{% if request.GET.sort_by == 'price_asc' %}selected{% endif %}">   Giá giảm dần </a>
+                <a href="{% url 'laptop_list' %}?sort_by=price_asc" class="{% if request.GET.sort_by == 'price_asc' %}selected{% endif %}">   Giá tăng dần </a>
               
                     <div class="tick tick-another"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                 </div>
                 <div class="filter-item-another">
-                <a href="{% url 'laptop_list' %}?sort_by=price_desc" class="{% if request.GET.sort_by == 'price_desc' %}selected{% endif %}">Giá tăng dần</a>
+                <a href="{% url 'laptop_list' %}?sort_by=price_desc" class="{% if request.GET.sort_by == 'price_desc' %}selected{% endif %}">Giá giảm dần</a>
                 
                     <div class="tick tick-another"><i class="fas fa-check" style="position: absolute;  left: 7px"></i></div>
                 </div>
